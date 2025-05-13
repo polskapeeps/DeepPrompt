@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PromptCraft Pro - Advanced AI Image Prompt Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class', // Using 'class' strategy
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            50: '#F5F5F5',
+                            100: '#E0E0E0',
+                            200: '#B0B0B0',
+                            300: '#808080',
+                            400: '#505050',
+                            500: '#303030',
+                            600: '#252525',
+                            700: '#202020',
+                            800: '#1A1A1A',
+                            900: '#121212',
+                        },
+                        purple: {
+                            900: '#4B0082', // Indigo
+                            800: '#5E1A9E',
+                            700: '#6B46C1', // Main Purple
+                            600: '#7C3AED',
+                            500: '#8B5CF6', // Lighter Purple
+                        }
+                    },
+                    animation: {
+                        'spin-slow': 'spin 3s linear infinite',
+                        'pulse-fast': 'pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'bounce-short': 'bounce 1s ease-in-out 3'
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="min-h-screen"> <div class="gradient-bg text-white py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">PromptCraft Pro</h1>
+            <p class="text-xl md:text-2xl opacity-90">Advanced AI Image & Video Prompt Generator</p>
+            <p class="mt-2 opacity-80">Create stunning prompts for Midjourney, DALL·E, Stable Diffusion, Sora and more</p>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <div class="bg-opacity-50 backdrop-blur-md rounded-xl shadow-lg p-6 mb-8 border" id="settingsContainer">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+                <div class="lg:col-span-1">
+                    <div class="section-header">
+                        <h2 class="text-2xl font-semibold text-purple-400 flex items-center">
+                            <i class="fas fa-cube mr-2"></i> Core Elements
+                        </h2>
+                        <button class="randomize-section-btn" id="randomizeCoreBtn" title="Randomize Core Elements">
+                            <i class="fas fa-dice-three"></i>
+                        </button>
+                    </div>
+                    <div class="mb-4">
+                        <label for="subject" class="block text-sm font-medium mb-1">Main Subject *</label>
+                        <input type="text" id="subject" placeholder="e.g., cyberpunk detective, mystical forest">
+                    </div>
+                    <div class="mb-4">
+                        <label for="subject-desc" class="block text-sm font-medium mb-1">Subject Description</label>
+                        <textarea id="subject-desc" placeholder="Physical appearance, clothing, expression, etc." class="h-24"></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label for="environment" class="block text-sm font-medium mb-1">Environment/Setting</label>
+                        <input type="text" id="environment" placeholder="e.g., neon-lit alley, enchanted castle">
+                    </div>
+                    <div class="mb-4">
+                        <label for="action" class="block text-sm font-medium mb-1">Key Action</label>
+                        <input type="text" id="action" placeholder="e.g., casting a spell, running from danger">
+                    </div>
+                </div>
+
+                <div class="lg:col-span-1">
+                    <div class="section-header">
+                        <h2 class="text-2xl font-semibold text-purple-400 flex items-center">
+                            <i class="fas fa-palette mr-2"></i> Style & Composition
+                        </h2>
+                        <button class="randomize-section-btn" id="randomizeStyleBtn" title="Randomize Style & Composition">
+                            <i class="fas fa-dice-three"></i>
+                        </button>
+                    </div>
+                    <div class="mb-4">
+                        <label for="style" class="block text-sm font-medium mb-1">Art Style (Dropdown)</label>
+                        <select id="style">
+                            <option value="">Any style</option>
+                            <optgroup label="Traditional Art">
+                                <option value="oil painting">Oil painting</option>
+                                <option value="watercolor">Watercolor</option>
+                                <option value="ink wash">Ink wash</option>
+                                <option value="charcoal sketch">Charcoal sketch</option>
+                                <option value="impressionist">Impressionist</option>
+                            </optgroup>
+                            <optgroup label="Digital & Contemporary">
+                                <option value="hyperrealistic">Hyperrealistic</option>
+                                <option value="concept art">Concept art</option>
+                                <option value="digital painting">Digital painting</option>
+                                <option value="low poly">Low poly</option>
+                                <option value="vector art">Vector art</option>
+                            </optgroup>
+                            <optgroup label="Genre Styles">
+                                <option value="cyberpunk">Cyberpunk</option>
+                                <option value="steampunk">Steampunk</option>
+                                <option value="dieselpunk">Dieselpunk</option>
+                                <option value="biopunk">Biopunk</option>
+                                <option value="fantasy">Fantasy</option>
+                            </optgroup>
+                            <optgroup label="Cultural Styles">
+                                <option value="ukiyo-e">Ukiyo-e</option>
+                                <option value="art nouveau">Art Nouveau</option>
+                                <option value="bauhaus">Bauhaus</option>
+                                <option value="surrealism">Surrealism</option>
+                                <option value="abstract expressionism">Abstract Expressionism</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="customStyle" class="block text-sm font-medium mb-1">Custom Art Style (Overrides)</label>
+                        <input type="text" id="customStyle" placeholder="e.g., vintage sci-fi poster, gritty comic book">
+                    </div>
+                    <div class="mb-4">
+                        <label for="lighting" class="block text-sm font-medium mb-1">Lighting</label>
+                        <select id="lighting">
+                            <option value="">Any lighting</option>
+                            <option value="dramatic chiaroscuro">Dramatic chiaroscuro</option>
+                            <option value="soft diffused">Soft diffused</option>
+                            <option value="neon glow">Neon glow</option>
+                            <option value="golden hour">Golden hour</option>
+                            <option value="moonlit">Moonlit</option>
+                            <option value="bioluminescent">Bioluminescent</option>
+                            <option value="volumetric god rays">Volumetric god rays</option>
+                            <option value="film noir">Film noir</option>
+                            <option value="studio lighting">Studio lighting</option>
+                            <option value="candlelit">Candlelit</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="composition" class="block text-sm font-medium mb-1">Composition</label>
+                        <select id="composition">
+                            <option value="">Any composition</option>
+                            <option value="extreme close-up">Extreme close-up</option>
+                            <option value="medium shot">Medium shot</option>
+                            <option value="wide shot">Wide shot</option>
+                            <option value="aerial view">Aerial view</option>
+                            <option value="macro">Macro</option>
+                            <option value="symmetrical">Symmetrical</option>
+                            <option value="dynamic dutch angle">Dynamic dutch angle</option>
+                            <option value="over-the-shoulder">Over-the-shoulder</option>
+                            <option value="fisheye lens">Fisheye lens</option>
+                            <option value="tilt-shift">Tilt-shift</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="colors" class="block text-sm font-medium mb-1">Color Palette</label>
+                        <select id="colors">
+                            <option value="">Any colors</option>
+                            <option value="monochromatic">Monochromatic</option>
+                            <option value="analogous">Analogous</option>
+                            <option value="complementary">Complementary</option>
+                            <option value="triadic">Triadic</option>
+                            <option value="pastel">Pastel</option>
+                            <option value="vibrant saturated">Vibrant saturated</option>
+                            <option value="dark and moody">Dark and moody</option>
+                            <option value="earth tones">Earth tones</option>
+                            <option value="neon cyberpunk">Neon cyberpunk</option>
+                            <option value="black and white">Black and white</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-1">
+                     <div class="section-header">
+                        <h2 class="text-2xl font-semibold text-purple-400 flex items-center">
+                            <i class="fas fa-sliders-h mr-2"></i> Advanced Settings
+                        </h2>
+                        <button class="randomize-section-btn" id="randomizeAdvancedBtn" title="Randomize Advanced Settings">
+                            <i class="fas fa-dice-three"></i>
+                        </button>
+                    </div>
+                    <div class="mb-4">
+                        <label for="mood" class="block text-sm font-medium mb-1">Mood/Atmosphere</label>
+                        <select id="mood">
+                            <option value="">Any mood</option>
+                            <option value="mysterious and ominous">Mysterious and ominous</option>
+                            <option value="epic and grandiose">Epic and grandiose</option>
+                            <option value="whimsical and playful">Whimsical and playful</option>
+                            <option value="melancholic and nostalgic">Melancholic and nostalgic</option>
+                            <option value="futuristic and technological">Futuristic and technological</option>
+                            <option value="ethereal and dreamlike">Ethereal and dreamlike</option>
+                            <option value="tense and dramatic">Tense and dramatic</option>
+                            <option value="serene and peaceful">Serene and peaceful</option>
+                            <option value="chaotic and energetic">Chaotic and energetic</option>
+                            <option value="romantic and intimate">Romantic and intimate</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="textures" class="block text-sm font-medium mb-1">Texture & Materials</label>
+                        <input type="text" id="textures" placeholder="e.g., brushed metal, cracked leather">
+                    </div>
+                    <div class="mb-4">
+                        <label for="artists" class="block text-sm font-medium mb-1">Artistic References</label>
+                        <select id="artists">
+                            <option value="">No specific reference</option>
+                            <optgroup label="Classic Artists">
+                                <option value="inspired by Caravaggio">Caravaggio</option>
+                                <option value="inspired by Van Gogh">Van Gogh</option>
+                                <option value="inspired by Monet">Monet</option>
+                                <option value="inspired by H.R. Giger">H.R. Giger</option>
+                            </optgroup>
+                            <optgroup label="Contemporary Artists">
+                                <option value="inspired by Greg Rutkowski">Greg Rutkowski</option>
+                                <option value="inspired by Artgerm">Artgerm</option>
+                                <option value="inspired by Loish">Loish</option>
+                                <option value="inspired by Simon Stålenhag">Simon Stålenhag</option>
+                            </optgroup>
+                            <optgroup label="Animation Styles">
+                                <option value="Studio Ghibli style">Studio Ghibli</option>
+                                <option value="Pixar animated style">Pixar</option>
+                                <option value="Disney Renaissance style">Disney Renaissance</option>
+                                <option value="Anime style">Anime</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-1">Technical Details</label>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <select id="resolution">
+                                    <option value="">Resolution</option>
+                                    <option value="4K">4K</option>
+                                    <option value="8K">8K</option>
+                                    <option value="16K">16K</option>
+                                    <option value="ultra HD">Ultra HD</option>
+                                </select>
+                            </div>
+                            <div>
+                                <select id="render">
+                                    <option value="">Render Engine</option>
+                                    <option value="Octane render">Octane</option>
+                                    <option value="Unreal Engine 5">UE5</option>
+                                    <option value="Arnold render">Arnold</option>
+                                    <option value="Redshift render">Redshift</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="negativePrompt" class="block text-sm font-medium mb-1">Negative Prompt</label>
+                        <input type="text" id="negativePrompt" placeholder="e.g., blurry, text, watermark, ugly">
+                    </div>
+                    <div class="mb-4">
+                        <label for="promptSuffix" class="block text-sm font-medium mb-1">Prompt Suffix/Emphasis</label>
+                        <input type="text" id="promptSuffix" placeholder="e.g., --ar 16:9, (masterpiece:1.2)">
+                    </div>
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="videoPrompt" class="w-4 h-4 text-purple-600 rounded focus:ring-purple-500 border-gray-300">
+                            <label for="videoPrompt" class="ml-2 text-sm">Generate for video (Sora)</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="highDetail" class="w-4 h-4 text-purple-600 rounded focus:ring-purple-500 border-gray-300" checked>
+                            <label for="highDetail" class="ml-2 text-sm">Ultra Detail</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4">
+                <button id="generateBtn" class="btn btn-primary group">
+                    <i class="fas fa-magic mr-2 group-hover:rotate-12 transition-transform"></i> Generate Prompt
+                </button>
+                <button id="randomizeAllBtn" class="btn btn-secondary group">
+                    <i class="fas fa-random mr-2 group-hover:rotate-180 transition-transform"></i> Randomize All
+                </button>
+            </div>
+
+            <div class="mt-8 border-t pt-6" id="presetSection">
+                <h3 class="text-xl font-semibold mb-3 text-purple-400 text-center">Preset Management</h3>
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                    <input type="text" id="presetName" placeholder="Preset Name" class="sm:max-w-xs">
+                    <button id="savePresetBtn" class="btn btn-secondary group">
+                        <i class="fas fa-save mr-2 group-hover:animate-bounce-short"></i> Save Preset
+                    </button>
+                </div>
+                <div class="mt-4 text-center">
+                    <label for="loadPresetSelect" class="block text-sm font-medium mb-1">Load Preset:</label>
+                    <select id="loadPresetSelect" class="max-w-xs mx-auto">
+                        <option value="">-- Select a Preset --</option>
+                        </select>
+                </div>
+            </div>
+        </div>
+
+        <div id="results" class="hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-semibold text-purple-400">Generated Prompts</h2>
+                <div class="flex items-center">
+                    <span class="text-sm mr-2" id="darkModeLabel">Dark Mode</span>
+                    <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                        <input type="checkbox" name="toggle" id="darkModeToggle" class="toggle-checkbox absolute block w-6 h-6 rounded-full border-4 appearance-none cursor-pointer"/>
+                        <label for="darkModeToggle" class="toggle-label block overflow-hidden h-6 rounded-full cursor-pointer"></label>
+                    </div>
+                    <button id="copyAllBtn" class="text-purple-400 hover:text-purple-300 transition-colors flex items-center text-sm">
+                        <i class="far fa-copy mr-1"></i> Copy All
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div id="promptCard1" class="prompt-card rounded-xl p-6 fade-in">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex items-center">
+                            <span class="bg-purple-900 text-purple-100 text-xs px-2 py-1 rounded mr-2">V1</span>
+                            <h3 class="font-medium text-purple-300">Cinematic Style</h3>
+                        </div>
+                        <button class="copy-btn text-purple-400 hover:text-purple-200 transition-colors" data-target="prompt1-text">
+                            <i class="far fa-copy"></i>
+                        </button>
+                    </div>
+                    <p id="prompt1-text" class="text-sm min-h-[60px]"></p> <div class="mt-4 flex flex-wrap gap-2" id="tags1"></div> </div>
+
+                <div id="promptCard2" class="prompt-card rounded-xl p-6 fade-in">
+                     <div class="flex justify-between items-start mb-4">
+                        <div class="flex items-center">
+                            <span class="bg-purple-900 text-purple-100 text-xs px-2 py-1 rounded mr-2">V2</span>
+                            <h3 class="font-medium text-purple-300">Artistic Style</h3>
+                        </div>
+                        <button class="copy-btn text-purple-400 hover:text-purple-200 transition-colors" data-target="prompt2-text">
+                            <i class="far fa-copy"></i>
+                        </button>
+                    </div>
+                    <p id="prompt2-text" class="text-sm min-h-[60px]"></p> <div class="mt-4 flex flex-wrap gap-2" id="tags2"></div> </div>
+
+                <div id="promptCard3" class="prompt-card rounded-xl p-6 fade-in">
+                     <div class="flex justify-between items-start mb-4">
+                        <div class="flex items-center">
+                            <span class="bg-purple-900 text-purple-100 text-xs px-2 py-1 rounded mr-2">V3</span>
+                            <h3 class="font-medium text-purple-300">Concept Art Style</h3>
+                        </div>
+                        <button class="copy-btn text-purple-400 hover:text-purple-200 transition-colors" data-target="prompt3-text">
+                            <i class="far fa-copy"></i>
+                        </button>
+                    </div>
+                    <p id="prompt3-text" class="text-sm min-h-[60px]"></p> <div class="mt-4 flex flex-wrap gap-2" id="tags3"></div> </div>
+
+                <div id="promptCard4" class="prompt-card rounded-xl p-6 fade-in">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex items-center">
+                            <span class="bg-purple-900 text-purple-100 text-xs px-2 py-1 rounded mr-2">V4</span>
+                            <h3 class="font-medium text-purple-300">Photorealistic Style</h3>
+                        </div>
+                        <button class="copy-btn text-purple-400 hover:text-purple-200 transition-colors" data-target="prompt4-text">
+                            <i class="far fa-copy"></i>
+                        </button>
+                    </div>
+                    <p id="prompt4-text" class="text-sm min-h-[60px]"></p> <div class="mt-4 flex flex-wrap gap-2" id="tags4"></div> </div>
+            </div>
+
+            <div class="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4">
+                <button id="regenerateBtn" class="btn btn-primary group">
+                    <i class="fas fa-sync-alt mr-2 group-hover:rotate-180 transition-transform"></i> Regenerate All
+                </button>
+                <button id="enhanceBtn" class="btn btn-secondary group">
+                    <i class="fas fa-wand-magic-sparkles mr-2 group-hover:animate-pulse-fast"></i> Enhance Details
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,303 @@
+/* styles.css */
+
+/* Ensure dark mode is default if no preference is set */
+:root {
+    color-scheme: dark; /* Suggests dark mode to the browser */
+}
+
+/* Base body styles for dark mode */
+html.dark body {
+     background-color: #121212; /* dark-900 */
+     color: #E0E0E0; /* dark-100 */
+}
+
+/* Base body styles for light mode */
+html:not(.dark) body {
+    background-color: #f3f4f6; /* gray-100 */
+    color: #1f2937; /* gray-800 */
+}
+
+/* Header gradient background */
+.gradient-bg {
+    background: linear-gradient(135deg, #6B46C1 0%, #4B0082 100%); /* purple-700 to purple-900 */
+}
+
+/* Prompt Card Styling */
+.prompt-card {
+    transition: all 0.3s ease;
+    min-height: 200px; /* Ensure cards have a minimum height */
+    border: 1px solid;
+}
+
+/* Dark mode prompt card */
+html.dark .prompt-card {
+    background-color: #252525; /* dark-600 */
+    border-color: #505050; /* dark-400 */
+}
+
+/* Light mode prompt card */
+html:not(.dark) .prompt-card {
+    background-color: white;
+    border-color: #e5e7eb; /* gray-200 */
+}
+
+/* Prompt card hover effect */
+.prompt-card:hover {
+    transform: translateY(-5px); /* Slight lift effect */
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+}
+
+/* Dark mode prompt card hover border */
+html.dark .prompt-card:hover {
+     border-color: #6B46C1; /* purple-700 */
+}
+
+/* Light mode prompt card hover border */
+html:not(.dark) .prompt-card:hover {
+    border-color: #8B5CF6; /* purple-500 */
+}
+
+/* Input Field Styling (Textarea, Input, Select) */
+textarea, input[type="text"], input[type="search"], select {
+    border-width: 1px;
+    border-radius: 0.5rem; /* rounded-lg */
+    padding: 0.5rem 1rem; /* px-4 py-2 */
+    width: 100%; /* Make inputs take full width of their container */
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Smooth transitions */
+}
+
+/* Dark mode input fields */
+html.dark textarea, html.dark input[type="text"], html.dark input[type="search"], html.dark select {
+    background-color: #252525; /* dark-600 */
+    color: #E0E0E0; /* dark-100 */
+    border-color: #505050; /* dark-400 */
+}
+
+/* Light mode input fields */
+html:not(.dark) textarea, html:not(.dark) input[type="text"], html:not(.dark) input[type="search"], html:not(.dark) select {
+    background-color: white;
+    color: #1f2937; /* gray-800 */
+    border-color: #d1d5db; /* gray-300 */
+}
+
+/* Placeholder text color */
+html.dark textarea::placeholder, html.dark input::placeholder { color: #808080; /* dark-300 */ }
+html:not(.dark) textarea::placeholder, html:not(.dark) input::placeholder { color: #9ca3af; /* gray-400 */ }
+
+/* Input focus styles */
+textarea:focus, input[type="text"]:focus, input[type="search"]:focus, select:focus {
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 0 2px var(--tw-ring-color); /* ring-2 equivalent */
+}
+
+/* Dark mode input focus ring and border */
+html.dark textarea:focus, html.dark input[type="text"]:focus, html.dark input[type="search"]:focus, html.dark select:focus {
+    --tw-ring-color: #7C3AED; /* purple-600 */
+    border-color: #7C3AED;
+}
+
+/* Light mode input focus ring and border */
+html:not(.dark) textarea:focus, html:not(.dark) input[type="text"]:focus, html:not(.dark) input[type="search"]:focus, html:not(.dark) select:focus {
+    --tw-ring-color: #8B5CF6; /* purple-500 */
+    border-color: #8B5CF6;
+}
+
+/* Fade-in animation for results */
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Text selection styling */
+::selection {
+    background: #6B46C1; /* purple-700 */
+    color: white;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+html.dark ::-webkit-scrollbar-track {
+    background: #252525; /* dark-600 */
+}
+html:not(.dark) ::-webkit-scrollbar-track {
+    background: #e5e7eb; /* gray-200 */
+}
+::-webkit-scrollbar-thumb {
+    background: #6B46C1; /* purple-700 */
+    border-radius: 4px;
+}
+
+/* Dark Mode Toggle Switch Styling */
+.toggle-checkbox {
+    /* Base styles handled by Tailwind/HTML structure */
+    transition: all 0.3s ease; /* Smooth transition for the switch */
+}
+.toggle-checkbox:checked {
+    /* Moves the inner circle to the right */
+    right: 0;
+    border-color: #6B46C1; /* purple-700 */
+    transform: translateX(100%); /* Ensure it moves fully in LTR */
+}
+.toggle-checkbox:checked + .toggle-label {
+    /* Background of the switch track when checked */
+    background-color: #6B46C1; /* purple-700 */
+}
+
+/* Switch track background */
+html.dark .toggle-label { background-color: #505050; /* dark-400 */ }
+html:not(.dark) .toggle-label { background-color: #d1d5db; /* gray-300 */ }
+
+/* Switch knob background */
+html.dark .toggle-checkbox { background-color: #E0E0E0; /* dark-100 */ }
+html:not(.dark) .toggle-checkbox { background-color: white; }
+
+/* Button Styling */
+.btn {
+    padding: 0.75rem 1.5rem; /* px-6 py-3 */
+    border-radius: 0.5rem; /* rounded-lg */
+    font-weight: 500; /* font-medium */
+    transition: all 0.2s ease-in-out;
+    display: inline-flex; /* Allows aligning icon and text */
+    align-items: center; /* Vertically center icon and text */
+    justify-content: center; /* Center content horizontally */
+    cursor: pointer;
+    border: 1px solid transparent; /* Base border for consistent sizing */
+}
+
+/* Primary Button */
+.btn-primary {
+    background: linear-gradient(135deg, #7C3AED 0%, #5E1A9E 100%); /* purple-600 to purple-800 */
+    color: white;
+}
+.btn-primary:hover {
+    opacity: 0.9; /* Slight fade on hover */
+    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4); /* Purple glow */
+}
+
+/* Secondary Button */
+.btn-secondary {
+    /* Colors are mode-dependent */
+    border-width: 1px;
+}
+
+/* Dark mode secondary button */
+html.dark .btn-secondary {
+    background-color: #303030; /* dark-500 */
+    border-color: #505050; /* dark-400 */
+    color: #E0E0E0; /* dark-100 */
+}
+
+/* Light mode secondary button */
+html:not(.dark) .btn-secondary {
+    background-color: #e5e7eb; /* gray-200 */
+    color: #374151; /* gray-700 */
+    border-color: #d1d5db; /* gray-300 */
+}
+
+/* Dark mode secondary button hover */
+html.dark .btn-secondary:hover {
+    background-color: #505050; /* dark-400 */
+    border-color: #7C3AED; /* purple-600 */
+    color: white; /* Make text brighter on hover */
+}
+
+/* Light mode secondary button hover */
+html:not(.dark) .btn-secondary:hover {
+    background-color: #d1d5db; /* gray-300 */
+    border-color: #8B5CF6; /* purple-500 */
+    color: #1f2937; /* gray-800 */
+}
+
+/* Section Header Styling */
+.section-header {
+    display: flex;
+    justify-content: space-between; /* Pushes title and button apart */
+    align-items: center; /* Vertically aligns title and button */
+    margin-bottom: 1rem; /* mb-4 */
+    border-bottom: 1px solid; /* Add a subtle separator */
+    padding-bottom: 0.5rem; /* Space below the line */
+}
+html.dark .section-header { border-color: #303030; /* dark-500 */ }
+html:not(.dark) .section-header { border-color: #e5e7eb; /* gray-200 */ }
+
+.section-header h2 {
+    margin-bottom: 0; /* Remove default heading margin */
+}
+
+/* Randomize Section Button */
+.randomize-section-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #8B5CF6; /* purple-500 */
+    font-size: 1.25rem; /* text-xl */
+    transition: color 0.2s, transform 0.2s;
+    padding: 0.25rem; /* Add some clickable area */
+    line-height: 1; /* Prevent extra vertical space */
+}
+.randomize-section-btn:hover {
+    color: #6B46C1; /* purple-700 */
+    transform: rotate(15deg); /* Fun rotate effect */
+}
+
+/* Settings Container Background/Border (Mode dependent) */
+html.dark #settingsContainer {
+    background-color: rgba(26, 26, 26, 0.8); /* dark-800 with opacity */
+    border-color: #303030; /* dark-700 */
+}
+html:not(.dark) #settingsContainer {
+    background-color: rgba(249, 250, 251, 0.8); /* gray-50 with opacity */
+    border-color: #e5e7eb; /* gray-200 */
+}
+
+/* Preset Section Border (Mode dependent) */
+html.dark #presetSection {
+    border-top-color: #303030; /* dark-600 */
+}
+html:not(.dark) #presetSection {
+    border-top-color: #d1d5db; /* gray-300 */
+}
+
+/* Label Styling (Mode dependent) */
+html.dark label { color: #B0B0B0; /* dark-200 */ }
+html:not(.dark) label { color: #4b5563; /* gray-600 */ }
+
+/* Specific Text Color Overrides (Mode dependent) */
+html.dark .text-purple-400 { color: #a78bfa; } /* Adjust purple for dark mode */
+html:not(.dark) .text-purple-400 { color: #8b5cf6; } /* Standard purple for light */
+
+html.dark .text-purple-300 { color: #c4b5fd; }
+html:not(.dark) .text-purple-300 { color: #a78bfa; }
+
+html.dark .text-purple-100 { color: #ede9fe; }
+html:not(.dark) .text-purple-100 { color: #ddd6fe; }
+
+/* Tag Styling (Mode dependent) */
+.tag { /* Base class if needed, otherwise handled dynamically by JS */
+    display: inline-block;
+    font-size: 0.75rem; /* text-xs */
+    padding: 0.25rem 0.5rem; /* px-2 py-1 */
+    border-radius: 0.25rem; /* rounded */
+}
+html.dark .tag-dynamic { /* Class added by JS for dark mode */
+    background-color: #252525; /* dark-700 */
+    color: #B0B0B0; /* dark-200 */
+}
+html:not(.dark) .tag-dynamic { /* Class added by JS for light mode */
+     background-color: #e5e7eb; /* gray-200 */
+     color: #4b5563; /* gray-600 */
+}
+
+/* Ensure required field indicator is visible */
+label:has(+ input[required])::after,
+label:contains('*')::after { /* Basic check for asterisk */
+    content: " *";
+    color: #ef4444; /* red-500 */
+    font-weight: bold;
+    margin-left: 2px;
+}
